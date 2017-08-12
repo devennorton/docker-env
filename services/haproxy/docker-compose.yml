@@ -1,7 +1,7 @@
 version: '2'
 services:
   haproxy:
-    image: artifactory.boku.com/dev/haproxy
+    image: devennorton/haproxy
     ports:
      - "80:80"
     environment:
