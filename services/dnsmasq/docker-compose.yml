@@ -1,0 +1,14 @@
+version: '2'
+services:
+  dnsmasq:
+    image: devennorton/dnsmasq
+    ports:
+      - "10.10.10.10:53:53"
+      - "10.10.10.10:53:53/udp"
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./files/dnsmasq.conf:/etc/dnsmasq.conf
+    environment:
+      SERVICE_53_NAME: dnsmasq
+    command: dnsmasq -k -C /etc/dnsmasq.conf --log-facility=-

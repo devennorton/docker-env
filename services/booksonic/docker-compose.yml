@@ -1,0 +1,18 @@
+version: '2'
+services:
+  booksonic:
+    image: linuxserver/booksonic
+    ports:
+      - "4040"
+    environment:
+      PGID: 0
+      PUID: 0
+      TZ: america/los_angeles
+      CONTEXT_PATH: /
+      SERVICE_4040_NAME: booksonic
+      SERVICE_4040_TAGS: http
+    volumes:
+      - "./files/config:/config"
+      - "/var/media/audiobooks:/books"
+
+    dns: 10.10.10.10

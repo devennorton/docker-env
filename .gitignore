@@ -1,0 +1,4 @@
+#dont want to persist the efemeral haproxy config.
+/haproxy/files/haproxycfg
+.idea
+*.iml

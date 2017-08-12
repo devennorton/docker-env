@@ -1,0 +1,7 @@
+version: '2'
+services:
+  registrator:
+    image: gliderlabs/registrator:latest
+    command: -ip 10.10.10.10 consul://10.10.10.10:8500
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock

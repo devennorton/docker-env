@@ -1,0 +1,30 @@
+global
+    log 10.10.10.10   local0
+    debug
+    stats timeout 30s
+    maxconn {{with $maxconn:=key "service/haproxy/maxconn"}}{{$maxconn}}{{else}}4096{{end}}
+
+defaults
+    log global
+    option httplog
+    option dontlognull
+    mode http{{range ls "service/haproxy/timeouts"}}
+    timeout {{.Key}} {{.Value}}{{else}}
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000{{end}}
+
+frontend http-in
+    bind *:80{{range $i,$a:=services}}{{$path:=.Name}}{{range .Tags}}{{if eq . "http"}}
+    acl app{{$i}} hdr(host) -i {{$path}}.local
+    acl app{{$i}} hdr(host) -i {{$path}}.ddnorton.com
+    acl app{{$i}} hdr(host) -i {{$path}}.dev{{end}}{{end}}{{end}}
+    {{range $i,$a:=services}}{{range .Tags}}{{if eq . "http"}}
+    use_backend srvs_app{{$i}} if app{{$i}}{{end}}{{end}}{{end}}
+
+{{range $i,$a:=services}}{{$path:=.Name}}{{range .Tags}}{{if eq . "http"}}
+backend srvs_app{{$i}}
+    mode http
+    balance roundrobin
+    option forwardfor{{range $c,$d:=service $a.Name}}
+    server host{{$c}} 10.10.10.10:{{.Port}} check{{end}}{{end}}{{end}}{{end}}

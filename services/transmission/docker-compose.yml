@@ -1,0 +1,17 @@
+version: '2'
+services:
+  transmission:
+    image: linuxserver/transmission
+    ports:
+      - "9091"
+      - "51413:51413"
+      - "51413:51413/udp"
+    environment:
+      PGID: 0
+      PUID: 0
+      TZ: america/los_angeles
+      SERVICE_9091_NAME: transmission
+      SERVICE_9091_TAGS: http
+    volumes:
+      - "./files/config:/config"
+      - "/var/media:/downloads"

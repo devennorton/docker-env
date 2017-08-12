@@ -1,0 +1,28 @@
+version: '2'
+services:
+  haproxy:
+    extends:
+      file: haproxy/docker-compose.yml
+      service: haproxy
+
+  consul:
+    extends:
+      file: consul/docker-compose.yml
+      service: consul
+
+  dnsmasq:
+    extends:
+      file: dnsmasq/docker-compose.yml
+      service: dnsmasq
+  
+  booksonic:
+    extends:
+      file: booksonic/docker-compose.yml
+      service: booksonic
+
+  registrator:
+    extends:
+      file: registrator/docker-compose.yml
+      service: registrator
+    depends_on: 
+      - consul

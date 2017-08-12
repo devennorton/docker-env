@@ -1,0 +1,12 @@
+version: '2'
+services:
+  haproxy:
+    image: artifactory.boku.com/dev/haproxy
+    ports:
+     - "80:80"
+    environment:
+     - SERVICE_80_NAME:haproxy
+    volumes:
+     - ./files/config:/consul-template
+     - ./files/haproxycfg:/usr/local/etc/haproxy
+    dns: 10.10.10.10

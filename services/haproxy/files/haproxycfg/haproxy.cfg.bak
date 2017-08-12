@@ -1,0 +1,218 @@
+global
+    log 10.10.10.10   local0
+    debug
+    stats timeout 30s
+    maxconn 4096
+
+defaults
+    log global
+    option httplog
+    option dontlognull
+    mode http
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
+frontend http-in
+    bind *:80
+    acl app6 hdr(host) -i consul-ui.local-paymo.net
+    acl app6 hdr(host) -i consul-ui.boku.net
+    acl app6 hdr(host) -i consul-ui.dev
+    acl app8 hdr(host) -i forex.local-paymo.net
+    acl app8 hdr(host) -i forex.boku.net
+    acl app8 hdr(host) -i forex.dev
+    acl app10 hdr(host) -i hlr.local-paymo.net
+    acl app10 hdr(host) -i hlr.boku.net
+    acl app10 hdr(host) -i hlr.dev
+    acl app11 hdr(host) -i idgeneratormanagement.local-paymo.net
+    acl app11 hdr(host) -i idgeneratormanagement.boku.net
+    acl app11 hdr(host) -i idgeneratormanagement.dev
+    acl app12 hdr(host) -i idmapper.local-paymo.net
+    acl app12 hdr(host) -i idmapper.boku.net
+    acl app12 hdr(host) -i idmapper.dev
+    acl app13 hdr(host) -i idmapper_admin.local-paymo.net
+    acl app13 hdr(host) -i idmapper_admin.boku.net
+    acl app13 hdr(host) -i idmapper_admin.dev
+    acl app15 hdr(host) -i merchant-auth-service.local-paymo.net
+    acl app15 hdr(host) -i merchant-auth-service.boku.net
+    acl app15 hdr(host) -i merchant-auth-service.dev
+    acl app16 hdr(host) -i merchant-feature-config-service.local-paymo.net
+    acl app16 hdr(host) -i merchant-feature-config-service.boku.net
+    acl app16 hdr(host) -i merchant-feature-config-service.dev
+    acl app17 hdr(host) -i merchant-service.local-paymo.net
+    acl app17 hdr(host) -i merchant-service.boku.net
+    acl app17 hdr(host) -i merchant-service.dev
+    acl app19 hdr(host) -i networkavailability-repository.local-paymo.net
+    acl app19 hdr(host) -i networkavailability-repository.boku.net
+    acl app19 hdr(host) -i networkavailability-repository.dev
+    acl app20 hdr(host) -i persistence-config-server.local-paymo.net
+    acl app20 hdr(host) -i persistence-config-server.boku.net
+    acl app20 hdr(host) -i persistence-config-server.dev
+    acl app21 hdr(host) -i persistence-config-server_10008.local-paymo.net
+    acl app21 hdr(host) -i persistence-config-server_10008.boku.net
+    acl app21 hdr(host) -i persistence-config-server_10008.dev
+    acl app22 hdr(host) -i refund-reason-mapping-service.local-paymo.net
+    acl app22 hdr(host) -i refund-reason-mapping-service.boku.net
+    acl app22 hdr(host) -i refund-reason-mapping-service.dev
+    acl app23 hdr(host) -i refunds-blacklist-service.local-paymo.net
+    acl app23 hdr(host) -i refunds-blacklist-service.boku.net
+    acl app23 hdr(host) -i refunds-blacklist-service.dev
+    acl app24 hdr(host) -i remoteconfig.local-paymo.net
+    acl app24 hdr(host) -i remoteconfig.boku.net
+    acl app24 hdr(host) -i remoteconfig.dev
+    acl app25 hdr(host) -i replytoaddress-service.local-paymo.net
+    acl app25 hdr(host) -i replytoaddress-service.boku.net
+    acl app25 hdr(host) -i replytoaddress-service.dev
+    acl app26 hdr(host) -i reversal-service.local-paymo.net
+    acl app26 hdr(host) -i reversal-service.boku.net
+    acl app26 hdr(host) -i reversal-service.dev
+    acl app27 hdr(host) -i risk.local-paymo.net
+    acl app27 hdr(host) -i risk.boku.net
+    acl app27 hdr(host) -i risk.dev
+    acl app28 hdr(host) -i routing-server-service.local-paymo.net
+    acl app28 hdr(host) -i routing-server-service.boku.net
+    acl app28 hdr(host) -i routing-server-service.dev
+    acl app29 hdr(host) -i sendsms-service.local-paymo.net
+    acl app29 hdr(host) -i sendsms-service.boku.net
+    acl app29 hdr(host) -i sendsms-service.dev
+    acl app30 hdr(host) -i smarty.local-paymo.net
+    acl app30 hdr(host) -i smarty.boku.net
+    acl app30 hdr(host) -i smarty.dev
+    acl app31 hdr(host) -i smsdatacollection-service.local-paymo.net
+    acl app31 hdr(host) -i smsdatacollection-service.boku.net
+    acl app31 hdr(host) -i smsdatacollection-service.dev
+    
+    use_backend srvs_app6 if app6
+    use_backend srvs_app8 if app8
+    use_backend srvs_app10 if app10
+    use_backend srvs_app11 if app11
+    use_backend srvs_app12 if app12
+    use_backend srvs_app13 if app13
+    use_backend srvs_app15 if app15
+    use_backend srvs_app16 if app16
+    use_backend srvs_app17 if app17
+    use_backend srvs_app19 if app19
+    use_backend srvs_app20 if app20
+    use_backend srvs_app21 if app21
+    use_backend srvs_app22 if app22
+    use_backend srvs_app23 if app23
+    use_backend srvs_app24 if app24
+    use_backend srvs_app25 if app25
+    use_backend srvs_app26 if app26
+    use_backend srvs_app27 if app27
+    use_backend srvs_app28 if app28
+    use_backend srvs_app29 if app29
+    use_backend srvs_app30 if app30
+    use_backend srvs_app31 if app31
+
+
+backend srvs_app6
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:8500 check
+backend srvs_app8
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:5000 check
+backend srvs_app10
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:5300 check
+backend srvs_app11
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:17030 check
+backend srvs_app12
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:13540 check
+backend srvs_app13
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:13549 check
+backend srvs_app15
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:10610 check
+backend srvs_app16
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:13400 check
+backend srvs_app17
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:12100 check
+backend srvs_app19
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:13510 check
+backend srvs_app20
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:10006 check
+backend srvs_app21
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:10008 check
+backend srvs_app22
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:12500 check
+backend srvs_app23
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:12010 check
+backend srvs_app24
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:17200 check
+backend srvs_app25
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:14960 check
+backend srvs_app26
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:17100 check
+backend srvs_app27
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:9092 check
+backend srvs_app28
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:14940 check
+backend srvs_app29
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:17700 check
+backend srvs_app30
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:8888 check
+backend srvs_app31
+    mode http
+    balance roundrobin
+    option forwardfor
+    server host0 10.10.10.10:10560 check

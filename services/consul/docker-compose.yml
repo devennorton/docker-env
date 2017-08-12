@@ -1,0 +1,18 @@
+version: '2'
+services:
+  consul:
+    image: consul
+    ports:
+      - "8300-8302:8300-8302"
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+    environment:
+      SERVICE_8500_NAME: consul-ui
+      SERVICE_8500_TAGS: http
+      SERVICE_8600_NAME: consul-dns
+      SERVICE_8400_NAME: consul-rpc
+      SERVICE_8300_NAME: consul-server-rpc
+      SERVICE_8301_NAME: consul-serf-lan
+      SERVICE_8302_NAME: consul-serf-wan
+
