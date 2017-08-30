@@ -1,0 +1,18 @@
+version: '2'
+services:
+  deluge:
+    image: linuxserver/deluge
+    ports:
+      - "8112"
+      - "45999:45999"
+      - "45999:45999/udp"
+    environment:
+      PGID: 0
+      PUID: 0
+      UMASK_SET: 0
+      TZ: america/los_angeles
+      SERVICE_8112_NAME: deluge
+      SERVICE_8112_TAGS: http
+    volumes:
+      - "./files/config:/config"
+      - "/var/media:/downloads"
