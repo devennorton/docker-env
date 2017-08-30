@@ -32,3 +32,7 @@ services:
       file: transmission/docker-compose.yml
       service: transmission
       
+  deluge:
+    extends:
+      file: deluge/docker-compose.yml
+      service: deluge
