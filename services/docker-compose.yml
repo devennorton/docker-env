@@ -9,11 +9,6 @@ services:
     extends:
       file: consul/docker-compose.yml
       service: consul
-
-  dnsmasq:
-    extends:
-      file: dnsmasq/docker-compose.yml
-      service: dnsmasq
   
   booksonic:
     extends:
@@ -26,13 +21,13 @@ services:
       service: registrator
     depends_on: 
       - consul
-
-  transmission:
-    extends:
-      file: transmission/docker-compose.yml
-      service: transmission
       
   deluge:
     extends:
       file: deluge/docker-compose.yml
       service: deluge
+
+  plex:
+    extends:
+      file: plex/docker-compose.yml
+      service: plex
